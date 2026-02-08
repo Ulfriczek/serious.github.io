@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serious...</title>
+
+<style>
+body{
+    font-family:Arial, sans-serif;
+    height:100vh;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    overflow:hidden;
+    transition:all 1s ease;
+}
+
+/* MYSTERY MODE */
+.mystery{
+    background:linear-gradient(135deg,#111,#333);
+    filter:grayscale(100%);
+}
+
+/* COLOR MODE */
+.color{
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+}
+
+.container{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    max-width:500px;
+    position:relative;
+    z-index:2;
+}
+
+
+button{
+    padding:15px 25px;
+    font-size:18px;
+    margin:10px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    transition:transform .2s;
+}
+
+button:hover{transform:scale(1.1);}
+
+.yes{background:#4CAF50;color:white;}
+.no{background:#f44336;color:white;position:absolute;}
+.reveal{background:#555;color:white;}
+
+#question{display:none;margin-top:15px;}
+#response{margin-top:20px;font-weight:bold;font-size:20px;}
+
+.floating{
+    position:absolute;
+    animation:float 20s linear infinite;
+    opacity:0.8;
+}
+
+@keyframes float{
+    from{transform:translateY(110vh) rotate(0deg);}
+    to{transform:translateY(-120vh) rotate(360deg);}
+}
+</style>
+</head>
+
+<body class="mystery">
+
+<div id="animals"></div>
+
+<div class="container">
+    <h1>To: Chezka</h1>
+    <p>From: Szymon</p>
+    <p></p>
+
+    <button id="revealBtn" class="reveal" onclick="revealQuestion()">...</button>
+
+    <div id="question">
+        <h2>Will you be my Valentine?!?!?!?!💘💘💘</h2>
+        <button class="yes" onclick="yesClicked()">Yes 💕</button>
+        <button class="no" onmouseover="runAway(this)">No 😭</button>
+    </div>
+
+    <div id="response"></div>
+</div>
+
+<script>
+function revealQuestion(){
+    document.getElementById("question").style.display="block";
+    document.getElementById("revealBtn").style.display="none";
+
+    document.body.classList.remove("mystery");
+    document.body.classList.add("color");
+
+    spawnAnimals();
+}
+
+function yesClicked(){
+    document.getElementById("response").innerText =
+    "Pick a movie for 14th then :>";
+}
+
+function runAway(btn){
+    btn.style.top=Math.random()*80+"%";
+    btn.style.left=Math.random()*80+"%";
+}
+
+/* animals appear ONLY after reveal */
+function spawnAnimals(){
+    const animals=["💘","💘","💘","💘","💘"];
+    const container=document.getElementById("animals");
+
+    for(let i=0;i<25;i++){
+        let el=document.createElement("div");
+        el.className="floating";
+        el.innerText=animals[Math.floor(Math.random()*animals.length)];
+        el.style.left=Math.random()*100+"vw";
+        el.style.animationDuration=(10+Math.random()*20)+"s";
+        el.style.fontSize=(25+Math.random()*30)+"px";
+        container.appendChild(el);
+    }
+}
+</script>
+
+</body>
+</html>
